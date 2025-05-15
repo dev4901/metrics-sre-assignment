@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "metrics-app.fullname" . }}
-  namespace: {{ .Values.namespace }}
   labels:
     {{- include "metrics-app.labels" . | nindent 4 }}
 spec:
