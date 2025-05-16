@@ -11,7 +11,7 @@ spec:
       containers:
         - name: helm-dependency-update
           image: "helm/helm:latest"
-          command: ["helm", "dependency", "update"]
+          command: ["helm", "dependency", "build"]
   backoffLimit: 4
   completions: 1
   parallelism: 1
