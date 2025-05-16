@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: helm-dependency-update
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: helm-dependency-update
+          image: "helm/helm:latest"
+          command: ["helm", "dependency", "update"]
+  backoffLimit: 4
+  completions: 1
+  parallelism: 1
