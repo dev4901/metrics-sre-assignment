@@ -1,10 +1,13 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  generateName: helm-dependency-update
+  name: "{{ .Release.Name }}-job-pre-install"
+#  generateName: helm-dependency-update
   annotations:
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
 spec:
   template:
     spec:
@@ -12,6 +15,6 @@ spec:
         - name: helm-dependency-update
           image: "helm/helm:latest"
           command: ["helm", "dependency", "build"]
-  backoffLimit: 4
-  completions: 1
-  parallelism: 1
+#  backoffLimit: 4
+#  completions: 1
+#  parallelism: 1
