@@ -15,6 +15,7 @@ spec:
         - name: helm-dependency-update
           image: "helm/helm:latest"
           command: ["helm", "dependency", "build"]
+      restartPolicy: OnFailure
 #  backoffLimit: 4
 #  completions: 1
 #  parallelism: 1
