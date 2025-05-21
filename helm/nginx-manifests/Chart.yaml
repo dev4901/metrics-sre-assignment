@@ -1,0 +1,4 @@
+apiVersion: v2
+name: nginx-manifests
+version: 0.1.0
+description: Pre-requisite dependency manifests
