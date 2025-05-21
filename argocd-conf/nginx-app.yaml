@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  namespace: argocd
+spec:
+  project: default
+  source:
+    helm:
+      parameters:
+      - name: readinessProbe.httpGet.path
+        value: /
+      valueFiles:
+      - values.yaml
+    path: helm/nginx-manifests
+    repoURL: git@github.com:dev4901/metrics-sre-assignment.git
+    targetRevision: master
+  destination:
+    namespace: ingress-nginx
+    server: https://test2-control-plane:6443
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
+      limit: 2
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
